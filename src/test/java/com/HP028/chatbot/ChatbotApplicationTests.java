@@ -1,4 +1,4 @@
-package com._HP028.chatbot;
+package com.HP028.chatbot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

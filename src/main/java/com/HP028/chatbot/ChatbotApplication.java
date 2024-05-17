@@ -1,4 +1,4 @@
-package com._HP028.chatbot;
+package com.HP028.chatbot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
