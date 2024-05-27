@@ -1,6 +1,5 @@
 package com.HP028.chatbot.member.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
