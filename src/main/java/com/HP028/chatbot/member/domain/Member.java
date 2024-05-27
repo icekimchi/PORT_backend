@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Getter
-//@Builder
 @RequiredArgsConstructor
 public class Member {
 
@@ -31,19 +30,17 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
-    public Member(String email, String name, String password, RoleType roleType) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.roleType = roleType;
-    }
-
     public void encodePassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
     }
 
     public static Member createMember(MemberSignUpRequest request) {
-        return new Member(request.getEmail(), request.getName(), request.getPassword(), RoleType.USER);
+        Member member = new Member();
+        member.email = request.getEmail();
+        member.name = request.getName();
+        member.password = request.getPassword();
+        member.roleType = RoleType.USER;
+        return member;
     }
 
 }

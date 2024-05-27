@@ -20,9 +20,9 @@ public class MemberAuthController {
 
     private final MemberAuthService memberAuthService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse<MemberSignUpResponse>> signUp(@RequestBody MemberSignUpRequest request) {
-        MemberSignUpResponse response= memberAuthService.signUp(request);
-        return ApiResponse.success(SIGNUP_SUCCESS,response);
+        MemberSignUpResponse response = memberAuthService.signUp(request);
+        return ApiResponse.success(SIGNUP_SUCCESS, response);
     }
 }
