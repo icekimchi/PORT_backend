@@ -1,9 +1,11 @@
 package com.HP028.chatbot.member.dto;
 
-public class MemberSignUpResponse {
+import lombok.Getter;
+
+@Getter
+public class MemberAuthResponse {
 
     private String email;
 
     private String name;
-
 }
