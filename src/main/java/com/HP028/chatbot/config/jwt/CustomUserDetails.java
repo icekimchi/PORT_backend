@@ -1,5 +1,6 @@
 package com.HP028.chatbot.config.jwt;
 
+import com.HP028.chatbot.member.domain.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,12 +16,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final CustomUserInfoDto member;
+    private final Member member;
+
+    @Override
+    public String getUsername() {
+        return member.getName();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         List<String> roles = new ArrayList<>();
-        roles.add("ROLE_" + member.getRole().toString());
+        roles.add(member.getRole().toString());
 
 
         return roles.stream()
@@ -32,12 +39,6 @@ public class CustomUserDetails implements UserDetails {
     public String getPassword() {
         return member.getPassword();
     }
-
-    @Override
-    public String getUsername() {
-        return member.getId().toString();
-    }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -58,4 +59,5 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
