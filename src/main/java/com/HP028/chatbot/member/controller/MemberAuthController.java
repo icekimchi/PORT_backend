@@ -5,6 +5,7 @@ import com.HP028.chatbot.member.dto.MemberSignInRequest;
 import com.HP028.chatbot.member.dto.MemberAuthResponse;
 import com.HP028.chatbot.member.dto.MemberSignUpRequest;
 import com.HP028.chatbot.member.service.MemberAuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import static com.HP028.chatbot.common.response.ApiSuccessStatus.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/member/auth")
+@Tag(name = "회원 인증 API", description = "회원 가입, 로그인 관련 API")
 public class MemberAuthController {
 
     private final MemberAuthService memberAuthService;

@@ -36,7 +36,7 @@ public class Member {
     @OneToMany(mappedBy = "sender")
     private List<Chat> chats = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "owner")
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
