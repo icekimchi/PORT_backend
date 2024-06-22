@@ -1,6 +1,7 @@
 package com.HP028.chatbot.config;
 
 import com.HP028.chatbot.config.jwt.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,8 @@ public class SecurityConfig{
 
     private final JwtUtil jwtUtil;
 
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+
     private static final String[] AUTH_WHITELIST = {
             "/api/member/auth/**", "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
             "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/auth/**"
@@ -63,15 +66,21 @@ public class SecurityConfig{
                         .anyRequest().authenticated());
 
         http
-                .addFilterBefore(new JwtFilter(jwtUtil), LoginFilter.class);
+                .addFilterBefore(new JwtFilter(jwtUtil, authenticationEntryPoint), LoginFilter.class);
+
+        LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, new ObjectMapper());
+        loginFilter.setFilterProcessesUrl("/api/member/auth/sign-in");
 
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class);
 
         //세션 설정
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                .authenticationEntryPoint(authenticationEntryPoint));
         return http.build();
 
     }

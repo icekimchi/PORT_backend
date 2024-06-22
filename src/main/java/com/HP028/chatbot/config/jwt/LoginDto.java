@@ -1,11 +1,12 @@
-package com.HP028.chatbot.member.dto;
+package com.HP028.chatbot.config.jwt;
 
 import lombok.Getter;
 
 @Getter
-public class MemberSignInRequest {
+public class LoginDto {
 
     private String email;
 
     private String password;
+
 }
