@@ -1,17 +1,14 @@
 package com.HP028.chatbot.member.controller;
 
 import com.HP028.chatbot.common.response.ApiResponse;
-import com.HP028.chatbot.member.dto.MemberSignInRequest;
+import com.HP028.chatbot.config.jwt.JwtUtil;
 import com.HP028.chatbot.member.dto.MemberAuthResponse;
 import com.HP028.chatbot.member.dto.MemberSignUpRequest;
 import com.HP028.chatbot.member.service.MemberAuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.HP028.chatbot.common.response.ApiSuccessStatus.*;
 
@@ -29,9 +26,4 @@ public class MemberAuthController {
         return ApiResponse.success(SIGNUP_SUCCESS, response);
     }
 
-    @PostMapping("/sign-in")
-    public ResponseEntity<ApiResponse<MemberAuthResponse>> signIn(@RequestBody MemberSignInRequest request) {
-        MemberAuthResponse response = memberAuthService.signIn(request);
-        return ApiResponse.success(SIGNIN_SUCCESS, response);
-    }
 }
