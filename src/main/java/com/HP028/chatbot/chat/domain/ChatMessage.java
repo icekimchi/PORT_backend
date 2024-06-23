@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class Chat {
+public class ChatMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +17,8 @@ public class Chat {
 
     private String message;
 
-    @JoinColumn(name = "sender_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Member sender;
+    @Enumerated(EnumType.STRING)
+    private SenderType senderType;
 
     @JoinColumn(name = "chat_room_id")
     @ManyToOne(fetch = FetchType.LAZY)

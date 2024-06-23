@@ -1,6 +1,6 @@
 package com.HP028.chatbot.member.domain;
 
-import com.HP028.chatbot.chat.domain.Chat;
+import com.HP028.chatbot.chat.domain.ChatMessage;
 import com.HP028.chatbot.chatroom.domain.ChatRoom;
 import com.HP028.chatbot.member.dto.MemberSignUpRequest;
 import jakarta.persistence.*;
@@ -32,9 +32,6 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
-
-    @OneToMany(mappedBy = "sender")
-    private List<Chat> chats = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")
     private List<ChatRoom> chatRooms = new ArrayList<>();

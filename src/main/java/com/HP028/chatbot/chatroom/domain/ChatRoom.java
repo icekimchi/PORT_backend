@@ -1,6 +1,6 @@
 package com.HP028.chatbot.chatroom.domain;
 
-import com.HP028.chatbot.chat.domain.Chat;
+import com.HP028.chatbot.chat.domain.ChatMessage;
 import com.HP028.chatbot.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class ChatRoom {
     private String name;
 
     @OneToMany(mappedBy = "chatRoom")
-    private List<Chat> chats = new ArrayList<>();
+    private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @JoinColumn(name = "owner_id")
     @ManyToOne(fetch = FetchType.LAZY)
