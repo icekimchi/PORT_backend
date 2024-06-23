@@ -19,7 +19,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ApiResponse> handleApiException(ApiException e) {
-        return ApiResponse.fail(e.getMessage(), e.getHttpStatus());
+        return ResponseEntity.status(e.getHttpStatus())
+                .body(ApiResponse.fail(e.getMessage(), e.getHttpStatus()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -29,17 +30,20 @@ public class GlobalExceptionHandler {
         if (message.endsWith(", ")) {
             message = message.substring(0, message.length() - 2);
         }
-        return ApiResponse.fail(message, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.fail(message, HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<ApiResponse> handleSQLException(SQLException e) {
-        return ApiResponse.fail(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.fail(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleException(Exception e) {
         log.warn("Exception", e);
-        return ApiResponse.fail(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.fail(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }

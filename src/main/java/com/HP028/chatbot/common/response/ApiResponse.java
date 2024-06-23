@@ -22,12 +22,11 @@ public class ApiResponse<T> {
                         .build());
     }
 
-    public static ResponseEntity<ApiResponse> fail(String message, HttpStatus httpStatus){
-        return ResponseEntity.status(httpStatus)
-                .body(ApiResponse.builder()
-                        .status(httpStatus.value())
-                        .message(message)
-                        .build());
+    public static ApiResponse fail(String message, HttpStatus httpStatus){
+        return ApiResponse.builder()
+                    .status(httpStatus.value())
+                    .message(message)
+                    .build();
     }
 
 }
