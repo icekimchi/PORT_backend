@@ -1,10 +1,11 @@
 package com.HP028.chatbot.member.domain;
 
-import com.HP028.chatbot.chat.domain.ChatMessage;
 import com.HP028.chatbot.chatroom.domain.ChatRoom;
 import com.HP028.chatbot.member.dto.MemberSignUpRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +23,11 @@ public class Member {
     private Long id;
 
     @NotNull
+    @Email
     private String email;
 
     @NotNull
+    @Size(min = 2, max = 10)
     private String name;
 
     @NotNull
