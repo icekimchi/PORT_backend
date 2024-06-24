@@ -2,7 +2,7 @@ package com.HP028.chatbot.member.service;
 
 import com.HP028.chatbot.exception.BadRequestException;
 import com.HP028.chatbot.member.domain.Member;
-import com.HP028.chatbot.member.dto.MemberAuthResponse;
+import com.HP028.chatbot.member.dto.MemberSignUpResponse;
 import com.HP028.chatbot.member.dto.MemberSignUpRequest;
 import com.HP028.chatbot.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class MemberAuthService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public MemberAuthResponse signUp(MemberSignUpRequest request) {
+    public MemberSignUpResponse signUp(MemberSignUpRequest request) {
 
         if (memberRepository.existsByEmail(request.getEmail())){
             throw new BadRequestException(DUPLICATED_MEMBER_FIELD);
@@ -30,6 +30,6 @@ public class MemberAuthService {
         member.encodePassword(passwordEncoder);
         Member savedMember = memberRepository.save(member);
 
-        return modelMapper.map(savedMember, MemberAuthResponse.class);
+        return modelMapper.map(savedMember, MemberSignUpResponse.class);
     }
 }
