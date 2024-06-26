@@ -12,6 +12,7 @@ TIME_NOW=$(date +%c)
 source ~/.bashrc
 
 echo "DB_ENDPOINT: ${DB_ENDPOINT}"
+echo "MYSQL: ${MYSQL}"
 
 # build 파일 복사
 echo "$TIME_NOW > $JAR_FILE 파일 복사" >> $DEPLOY_LOG
