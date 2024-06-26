@@ -9,6 +9,8 @@ DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
 TIME_NOW=$(date +%c)
 
+source ~/.bashrc
+
 echo "DB_ENDPOINT: ${DB_ENDPOINT}"
 
 # build 파일 복사
