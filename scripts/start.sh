@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source /home/ubuntu/.bashrc
+
 PROJECT_ROOT="/home/ubuntu/app"
 JAR_FILE="$PROJECT_ROOT/spring-webapp.jar"
 
@@ -8,9 +10,6 @@ ERROR_LOG="$PROJECT_ROOT/error.log"
 DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
 TIME_NOW=$(date +%c)
-
-source ~/.bashrc
-
 echo "DB_ENDPOINT: ${DB_ENDPOINT}"
 echo "MYSQL: ${MYSQL}"
 
