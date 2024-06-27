@@ -10,7 +10,7 @@ env:
   S3_BUCKET_NAME: port-pilot-github-actions-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: port-pilot-codedeploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: port-pilot-codedeploy-deployment-group
-  RESOURCE_PATH: ./src/main/resources/application.properties
+  RESOURCE_PATH: ./src/main/resources/application.yml
 
 permissions:
   contents: read
