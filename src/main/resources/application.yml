@@ -3,7 +3,7 @@ spring:
     name: chatbot
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_ENDPOINT}:3306/chatbot?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    url: ${DB_ENDPOINT}
     username: root
     password: ${MYSQL}
   jpa:
