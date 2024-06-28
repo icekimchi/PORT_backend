@@ -26,4 +26,24 @@ public class ChatMessage {
 
     private LocalDateTime timestamp;
 
+    public static ChatMessage createUserMessage(String message, ChatRoom chatRoom) {
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.message = message;
+        chatMessage.senderType = SenderType.USER;
+        chatMessage.chatRoom = chatRoom;
+        chatMessage.timestamp = LocalDateTime.now();
+        chatRoom.getChatMessages().add(chatMessage);
+        return chatMessage;
+    }
+
+    public static ChatMessage createServerMessage(String message, ChatRoom chatRoom) {
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.message = message;
+        chatMessage.senderType = SenderType.SERVER;
+        chatMessage.chatRoom = chatRoom;
+        chatMessage.timestamp = LocalDateTime.now();
+        chatRoom.getChatMessages().add(chatMessage);
+        return chatMessage;
+    }
+
 }
