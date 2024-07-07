@@ -35,6 +35,7 @@ public class ChatRoomService {
         return new ChatRoomResponse(chatRoom.getId(), chatRoom.getRoomName());
     }
 
+    @Transactional(readOnly = true)
     public List<ChatRoomResponse> getChatRooms() {
         Member member = getLoginMember();
         return member.getChatRooms().stream()
