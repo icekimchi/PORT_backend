@@ -9,11 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.HP028.chatbot.common.response.ApiFailStatus.*;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberAuthService {
 
     private final MemberRepository memberRepository;
