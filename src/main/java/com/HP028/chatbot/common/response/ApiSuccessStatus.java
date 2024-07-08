@@ -10,6 +10,7 @@ public enum ApiSuccessStatus {
     RETRIEVE_SUCCESS(HttpStatus.OK, "조회 성공"),
     DELETE_SUCCESS(HttpStatus.OK, "삭제 성공"),
     UPDATE_SUCCESS(HttpStatus.OK, "수정 성공"),
+    CREATE_SUCCESS(HttpStatus.CREATED, "생성 성공"),
     SIGNUP_SUCCESS(HttpStatus.CREATED,"회원가입 성공"),
     SIGNIN_SUCCESS(HttpStatus.ACCEPTED, "로그인 성공"),
     CREATE_CHATROOM_SUCCESS(HttpStatus.CREATED, "채팅방 생성 성공"),
