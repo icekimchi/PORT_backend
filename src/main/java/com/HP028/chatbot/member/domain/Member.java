@@ -55,4 +55,13 @@ public class Member {
         member.provider = Provider.EMAIL;
         return member;
     }
+
+    public static Member createOAuthMember(OAuthUserInfo request,Provider provider) {
+        Member member = new Member();
+        member.email = request.getEmail();
+        member.name = request.getName();
+        member.role = RoleType.USER;
+        member.provider = provider;
+        return member;
+    }
 }
