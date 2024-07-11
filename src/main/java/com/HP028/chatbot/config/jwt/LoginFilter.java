@@ -38,7 +38,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         LoginDto loginDto;
 
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
             ServletInputStream inputStream = request.getInputStream();
             String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
             loginDto = objectMapper.readValue(messageBody, LoginDto.class);
