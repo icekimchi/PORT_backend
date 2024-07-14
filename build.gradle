@@ -34,6 +34,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.749'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.5'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'

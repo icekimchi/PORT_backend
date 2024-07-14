@@ -23,6 +23,10 @@ public enum ApiFailStatus {
 
     //404 NOT_FOUND
     CHATROOM_NOT_FOUND("존재하지 않는 채팅방입니다"),
-    MEMBER_NOT_FOUND("사용자를 찾을 수 없습니다");
+    MEMBER_NOT_FOUND("사용자를 찾을 수 없습니다"),
+    FAQ_NOT_FOUND("FAQ를 찾을 수 없습니다"),
+
+    //500 INTERNAL_SERVER_ERROR
+    LLM_SERVICE_ERROR("LLM 서비스 오류");
     private final String message;
 }
