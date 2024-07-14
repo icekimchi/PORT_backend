@@ -7,13 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LLMMessageResponse {
-
-    private int status;
-
-    private String message;
-
-    private LLMServerResponseBody body;
+public class LLMServerResponseBody {
+    private String chatMessage;
 }
-
-

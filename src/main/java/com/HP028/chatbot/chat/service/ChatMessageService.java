@@ -38,10 +38,10 @@ public class ChatMessageService {
         chatMessageRepository.save(userMessage);
 
         //LLM 호출
-        LLMMessageResponse LLMMessageResponse = llmService.sendMessage(request);
+        LLMMessageResponse LLMMessageResponse = llmService.sendMessage(request.getChatMessage());
 
         //LLM 메시지 저장
-        ChatMessage llmMessage = ChatMessage.createServerMessage(LLMMessageResponse.getChatMessage(), chatRoom);
+        ChatMessage llmMessage = ChatMessage.createServerMessage(LLMMessageResponse.getBody().getChatMessage(), chatRoom);
         chatMessageRepository.save(llmMessage);
 
         return new SendChatMessageResponse(userMessage.getMessage(), llmMessage.getMessage());
