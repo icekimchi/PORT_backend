@@ -8,6 +8,7 @@ on:
 env:
   DOCKER_IMAGE_NAME: springboot-app
   AWS_REGION: ap-northeast-2
+  RESOURCE_PATH: ./src/main/resources/application.yml
 
 permissions:
   contents: read
