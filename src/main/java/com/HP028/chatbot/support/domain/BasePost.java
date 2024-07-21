@@ -2,6 +2,7 @@ package com.HP028.chatbot.support.domain;
 
 import com.HP028.chatbot.common.BaseTimeEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ public abstract class BasePost extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 1, max = 50)
     protected String title;
 
     protected String content;

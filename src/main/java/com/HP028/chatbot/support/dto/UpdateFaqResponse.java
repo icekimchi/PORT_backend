@@ -8,13 +8,16 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateFaqRequest {
+public class UpdateFaqResponse {
 
     private String title;
 
     private String content;
 
-    public Faq toEntity() {
-        return new Faq(title, content);
+    public static UpdateFaqResponse from(Faq faq) {
+        UpdateFaqResponse response = new UpdateFaqResponse();
+        response.title = faq.getTitle();
+        response.content = faq.getContent();
+        return response;
     }
 }
