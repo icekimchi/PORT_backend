@@ -30,11 +30,14 @@ public class Member {
     @Size(min = 2, max = 10)
     private String name;
 
-    @NotNull
     private String password;
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @OneToMany(mappedBy = "owner")
     private List<ChatRoom> chatRooms = new ArrayList<>();
@@ -49,16 +52,16 @@ public class Member {
         member.name = request.getName();
         member.password = request.getPassword();
         member.role = RoleType.USER;
+        member.provider = Provider.EMAIL;
         return member;
     }
 
-    public static Member createTempMember(String name, String password, RoleType role) {
+    public static Member createOAuthMember(OAuthUserInfo request,Provider provider) {
         Member member = new Member();
-        member.email = "tempemail@temp.com";
-        member.name = name;
-        member.password = password;
-        member.role = role;
+        member.email = request.getEmail();
+        member.name = request.getName();
+        member.role = RoleType.USER;
+        member.provider = provider;
         return member;
     }
-
 }
