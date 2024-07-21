@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Attachment {
+public class MediaFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +26,7 @@ public class Attachment {
     @JoinColumn(name = "qna_id")
     private Qna qna;
 
-    public Attachment(String fileName, String fileUrl, FileType fileType) {
+    public MediaFile(String fileName, String fileUrl, FileType fileType) {
         this.fileName = fileName;
         this.fileUrl = fileUrl;
         this.fileType = fileType;
