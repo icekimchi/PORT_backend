@@ -36,7 +36,7 @@ public class SecurityConfig{
 
     private static final String[] AUTH_WHITELIST = {
             "/api/member/auth/**","/api/member/oauth/**", "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
-            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/auth/**"
+            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/auth/**", "/error", "/favicon.ico", "/auth/success"
     };
 
 
@@ -62,9 +62,14 @@ public class SecurityConfig{
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated());
-
         http
                 .addFilterBefore(new JwtFilter(jwtUtil, authenticationEntryPoint), LoginFilter.class);
+
+//        http
+//                .oauth2Login(oauth2 -> oauth2
+//                        .userInfoEndpoint(userInfo -> userInfo
+//                                .userService(oAuth2UserService))
+//                        .successHandler(new OAuth2AuthenticationSuccessHandler(jwtUtil)));
 
         LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, new ObjectMapper());
         loginFilter.setFilterProcessesUrl("/api/member/auth/sign-in");

@@ -9,9 +9,18 @@ import com.HP028.chatbot.member.dto.MemberOAuthAccessResponse;
 import com.HP028.chatbot.member.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -22,32 +31,58 @@ public class MemberOAuthService {
     private final NaverOAuthClient naverOAuthClient;
     private final KakaoOAuthClient kakaoOAuthClient;
     private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberOAuthAccessResponse OAuthSignUp(MemberOAuthAccessRequest request, Provider provider) throws JsonProcessingException{
+//    public MemberOAuthAccessResponse OAuthSignUp(MemberOAuthAccessRequest request, Provider provider) throws JsonProcessingException{
+//        OAuthUserInfo userInfo = getUserInfo(provider, request.getAccessToken());
+//
+//        // 이미 가입된 회원인지 확인
+//        Optional<Member> existingMember = memberRepository.findByEmail(userInfo.getEmail());
+//
+//        if (existingMember.isPresent()) {
+//            // 이미 가입된 회원이면 로그인 처리
+//            return new MemberOAuthAccessResponse(createAccessResponse(existingMember.get()));
+//        } else {
+//            Member member = Member.createOAuthMember(userInfo,provider);
+//            Member savedMember = memberRepository.save(member);
+//            return new MemberOAuthAccessResponse(createAccessResponse(savedMember));
+//        }
+//    }
+
+    public MemberOAuthAccessResponse OAuthSignUp(MemberOAuthAccessRequest request, Provider provider) throws JsonProcessingException {
         OAuthUserInfo userInfo = getUserInfo(provider, request.getAccessToken());
 
         // 이미 가입된 회원인지 확인
         Optional<Member> existingMember = memberRepository.findByEmail(userInfo.getEmail());
 
+        Member member;
         if (existingMember.isPresent()) {
             // 이미 가입된 회원이면 로그인 처리
-            return new MemberOAuthAccessResponse(createAccessResponse(existingMember.get()));
+            member = existingMember.get();
         } else {
-            Member member = Member.createOAuthMember(userInfo,provider);
-            Member savedMember = memberRepository.save(member);
-            return new MemberOAuthAccessResponse(createAccessResponse(savedMember));
+            member = Member.createOAuthMember(userInfo, provider);
+            member = memberRepository.save(member);
         }
+
+        // SecurityContext에 인증 정보 저장
+        Authentication authentication = createAuthentication(member);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return new MemberOAuthAccessResponse(createAccessResponse(member));
     }
 
     private OAuthUserInfo getUserInfo(Provider provider, String accessToken) throws JsonProcessingException {
-        switch (provider) {
-            case NAVER:
-                return naverOAuthClient.getUserInfo(accessToken);
-            case KAKAO:
-                return kakaoOAuthClient.getUserInfo(accessToken);
-            default:
-                throw new IllegalArgumentException("Unsupported provider: " + provider);
-        }
+        return switch (provider) {
+            case NAVER -> naverOAuthClient.getUserInfo(accessToken);
+            case KAKAO -> kakaoOAuthClient.getUserInfo(accessToken);
+            default -> throw new IllegalArgumentException("Unsupported provider: " + provider);
+        };
+    }
+
+    private Authentication createAuthentication(Member member) {
+        UserDetails userDetails = new User(member.getEmail(), passwordEncoder.encode(""),
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + member.getRole().name())));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     private String createAccessResponse(Member member) {
