@@ -27,29 +27,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class MemberOAuthService {
+
     private final MemberRepository memberRepository;
     private final NaverOAuthClient naverOAuthClient;
     private final KakaoOAuthClient kakaoOAuthClient;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
-//    public MemberOAuthAccessResponse OAuthSignUp(MemberOAuthAccessRequest request, Provider provider) throws JsonProcessingException{
-//        OAuthUserInfo userInfo = getUserInfo(provider, request.getAccessToken());
-//
-//        // 이미 가입된 회원인지 확인
-//        Optional<Member> existingMember = memberRepository.findByEmail(userInfo.getEmail());
-//
-//        if (existingMember.isPresent()) {
-//            // 이미 가입된 회원이면 로그인 처리
-//            return new MemberOAuthAccessResponse(createAccessResponse(existingMember.get()));
-//        } else {
-//            Member member = Member.createOAuthMember(userInfo,provider);
-//            Member savedMember = memberRepository.save(member);
-//            return new MemberOAuthAccessResponse(createAccessResponse(savedMember));
-//        }
-//    }
-
     public MemberOAuthAccessResponse OAuthSignUp(MemberOAuthAccessRequest request, Provider provider) throws JsonProcessingException {
+
         OAuthUserInfo userInfo = getUserInfo(provider, request.getAccessToken());
 
         // 이미 가입된 회원인지 확인
@@ -72,6 +58,7 @@ public class MemberOAuthService {
     }
 
     private OAuthUserInfo getUserInfo(Provider provider, String accessToken) throws JsonProcessingException {
+
         return switch (provider) {
             case NAVER -> naverOAuthClient.getUserInfo(accessToken);
             case KAKAO -> kakaoOAuthClient.getUserInfo(accessToken);
@@ -80,13 +67,14 @@ public class MemberOAuthService {
     }
 
     private Authentication createAuthentication(Member member) {
+
         UserDetails userDetails = new User(member.getEmail(), passwordEncoder.encode(""),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + member.getRole().name())));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     private String createAccessResponse(Member member) {
-        return jwtUtil.createJwt(member.getName(), member.getRole().toString());
+        return jwtUtil.createJwt(member.getEmail(), member.getRole().toString());
     }
 
 }
