@@ -1,11 +1,11 @@
 package com.HP028.chatbot.chat.domain;
 
 import com.HP028.chatbot.chatroom.domain.ChatRoom;
-import com.HP028.chatbot.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 @Entity
 @Getter
@@ -26,24 +26,23 @@ public class ChatMessage {
 
     private LocalDateTime timestamp;
 
-    public static ChatMessage createUserMessage(String message, ChatRoom chatRoom) {
+    public static ChatMessage createMessage(String message, ChatRoom chatRoom, Consumer<ChatMessage> typeSetter) {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.message = message;
-        chatMessage.senderType = SenderType.USER;
         chatMessage.chatRoom = chatRoom;
         chatMessage.timestamp = LocalDateTime.now();
         chatRoom.getChatMessages().add(chatMessage);
+        typeSetter.accept(chatMessage);
         return chatMessage;
     }
 
-    public static ChatMessage createServerMessage(String message, ChatRoom chatRoom) {
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.message = message;
-        chatMessage.senderType = SenderType.SERVER;
-        chatMessage.chatRoom = chatRoom;
-        chatMessage.timestamp = LocalDateTime.now();
-        chatRoom.getChatMessages().add(chatMessage);
-        return chatMessage;
+    public static ChatMessage createUserMessage(String message, ChatRoom chatRoom) {
+        return createMessage(message, chatRoom, chatMessage -> chatMessage.senderType = SenderType.USER);
     }
+
+    public static ChatMessage createServerMessage(String message, ChatRoom chatRoom) {
+        return createMessage(message, chatRoom, chatMessage -> chatMessage.senderType = SenderType.SERVER);
+    }
+
 
 }

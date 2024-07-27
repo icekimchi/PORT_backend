@@ -1,6 +1,8 @@
 package com.HP028.chatbot.support.service;
 
 import com.HP028.chatbot.common.S3Service;
+import com.HP028.chatbot.common.response.ApiFailStatus;
+import com.HP028.chatbot.exception.InternalServerException;
 import com.HP028.chatbot.support.domain.MediaFile;
 import com.HP028.chatbot.support.domain.Faq;
 import com.HP028.chatbot.support.domain.FileType;
@@ -51,7 +53,7 @@ public class FaqService {
                 String fileUrl = s3Service.uploadFile(file);
                 faq.addMediaFile(new MediaFile(file.getOriginalFilename(), fileUrl, fileType));
             } catch (IOException e) {
-                throw new RuntimeException("Failed to upload file", e);
+                throw new InternalServerException(ApiFailStatus.FILE_UPLOAD_ERROR, e);
             }
         });
     }

@@ -27,6 +27,7 @@ public enum ApiFailStatus {
     FAQ_NOT_FOUND("FAQ를 찾을 수 없습니다"),
 
     //500 INTERNAL_SERVER_ERROR
-    LLM_SERVICE_ERROR("LLM 서비스 오류");
+    LLM_SERVICE_ERROR("LLM 서비스 오류"),
+    FILE_UPLOAD_ERROR("파일 업로드 오류");
     private final String message;
 }
