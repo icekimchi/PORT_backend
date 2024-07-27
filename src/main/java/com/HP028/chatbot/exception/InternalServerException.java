@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 
 public class InternalServerException extends ApiException {
 
-    public InternalServerException(ApiFailStatus apiFailStatus) {
-        super(HttpStatus.INTERNAL_SERVER_ERROR, apiFailStatus.getMessage());
+    public InternalServerException(ApiFailStatus apiFailStatus, Throwable cause) {
+        super(HttpStatus.INTERNAL_SERVER_ERROR, apiFailStatus.getMessage(),cause);
     }
 
 }
