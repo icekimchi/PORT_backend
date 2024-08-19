@@ -36,7 +36,7 @@ public class SecurityConfig{
 
     private static final String[] AUTH_WHITELIST = {
             "/api/member/auth/**","/api/member/oauth/**", "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
-            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/auth/**", "/error", "/favicon.ico", "/auth/success"
+            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/auth/**", "/error", "/favicon.ico", "/auth/success", "/api/chatrooms", "/api/chat"
     };
 
 
