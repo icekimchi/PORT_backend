@@ -3,12 +3,15 @@ package com.HP028.chatbot.chat.domain;
 import com.HP028.chatbot.chatroom.domain.ChatRoom;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
 @Entity
 @Getter
+@Slf4j
 public class ChatMessage {
 
     @Id
@@ -31,6 +34,7 @@ public class ChatMessage {
         chatMessage.message = message;
         chatMessage.chatRoom = chatRoom;
         chatMessage.timestamp = LocalDateTime.now();
+        log.info("채팅 전송 시간 :{}", chatMessage.timestamp);
         chatRoom.getChatMessages().add(chatMessage);
         typeSetter.accept(chatMessage);
         return chatMessage;

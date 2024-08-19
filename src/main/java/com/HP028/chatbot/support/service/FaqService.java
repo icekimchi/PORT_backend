@@ -1,6 +1,5 @@
 package com.HP028.chatbot.support.service;
 
-import com.HP028.chatbot.common.S3Service;
 import com.HP028.chatbot.common.response.ApiFailStatus;
 import com.HP028.chatbot.exception.InternalServerException;
 import com.HP028.chatbot.support.domain.MediaFile;
@@ -16,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 
 @Service
