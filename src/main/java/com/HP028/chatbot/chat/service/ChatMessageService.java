@@ -44,7 +44,7 @@ public class ChatMessageService {
         ChatMessage llmMessage = ChatMessage.createServerMessage(LLMMessageResponse.getBody().getChatMessage(), chatRoom);
         chatMessageRepository.save(llmMessage);
 
-        return new SendChatMessageResponse(userMessage.getMessage(), llmMessage.getMessage());
+        return new SendChatMessageResponse(userMessage.getMessage(), llmMessage.getMessage(), userMessage.getTimestamp(), llmMessage.getTimestamp());
     }
 
     public List<ChatMessageDto> getChatMessages(Long chatRoomId){

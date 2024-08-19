@@ -9,6 +9,7 @@ import com.HP028.chatbot.member.dto.MemberOAuthAccessResponse;
 import com.HP028.chatbot.member.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class MemberOAuthService {
 
     private final MemberRepository memberRepository;
@@ -50,8 +52,10 @@ public class MemberOAuthService {
             member = memberRepository.save(member);
         }
 
+        log.info("소셜 로그인 이메일={}",member.getEmail());
         // SecurityContext에 인증 정보 저장
         Authentication authentication = createAuthentication(member);
+        log.info("authentication={}",authentication.getPrincipal());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new MemberOAuthAccessResponse(createAccessResponse(member));
