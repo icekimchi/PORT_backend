@@ -1,4 +1,4 @@
-package com.HP028.chatbot.common;
+package com.HP028.chatbot.support.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -37,7 +37,7 @@ public class S3Service {
     }
 
     private String generateFileName(MultipartFile file) {
-        return UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+        return UUID.randomUUID() + "-" + file.getOriginalFilename();
     }
 
     private String extractFileNameFromUrl(String fileUrl) {
