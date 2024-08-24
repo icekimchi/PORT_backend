@@ -41,7 +41,7 @@ public class ChatMessageService {
         LLMMessageResponse LLMMessageResponse = llmService.sendMessage(request.getChatMessage());
 
         //LLM 메시지 저장
-        ChatMessage llmMessage = ChatMessage.createServerMessage(LLMMessageResponse.getBody().getChatMessage(), chatRoom);
+        ChatMessage llmMessage = ChatMessage.createServerMessage(LLMMessageResponse.getResponse(), chatRoom);
         chatMessageRepository.save(llmMessage);
 
         return new SendChatMessageResponse(userMessage.getMessage(), llmMessage.getMessage(), userMessage.getTimestamp(), llmMessage.getTimestamp());
