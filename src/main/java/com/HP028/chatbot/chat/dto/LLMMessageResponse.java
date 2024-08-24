@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LLMMessageResponse {
 
-    private int status;
-
-    private String message;
-
-    private LLMServerResponseBody body;
+    String response;
 }
 
 
