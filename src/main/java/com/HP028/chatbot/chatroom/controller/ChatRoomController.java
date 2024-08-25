@@ -1,11 +1,11 @@
 package com.HP028.chatbot.chatroom.controller;
 
+import com.HP028.chatbot.chatroom.dto.ChatRoomListResponse;
 import com.HP028.chatbot.chatroom.dto.ChatRoomRequest;
 import com.HP028.chatbot.chatroom.dto.ChatRoomResponse;
 import com.HP028.chatbot.chatroom.service.ChatRoomService;
 import com.HP028.chatbot.common.response.ApiResponse;
 import com.HP028.chatbot.common.response.ApiSuccessStatus;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/chatrooms")
-@Tag(name = "채팅방 관리 API", description = "채팅방 CRUD를 관리하는 API")
-public class ChatRoomController {
+public class ChatRoomController{
 
     private final ChatRoomService chatRoomService;
 
@@ -27,7 +26,7 @@ public class ChatRoomController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<ChatRoomResponse>>> getChatRooms() {
+    public ResponseEntity<ApiResponse<ChatRoomListResponse>> getChatRooms() {
         return ApiResponse.success(ApiSuccessStatus.RETRIEVE_SUCCESS,chatRoomService.getChatRooms());
     }
 
