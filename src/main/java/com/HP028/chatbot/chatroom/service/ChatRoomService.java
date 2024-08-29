@@ -79,6 +79,9 @@ public class ChatRoomService {
     public ChatRoomResponse updateChatRoom(Long id, ChatRoomRequest request) {
         ChatRoom chatRoom = chatRoomRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ApiFailStatus.CHATROOM_NOT_FOUND));
+        if(chatRoomRepository.existsByRoomName(request.getRoomName())){
+            throw new BadRequestException(ApiFailStatus.DUPLICATED_CHATROOM);
+        }
         chatRoom.updateChatRoomName(request.getRoomName());
         chatRoomRepository.save(chatRoom);
         return new ChatRoomResponse(chatRoom.getId(), chatRoom.getRoomName());
