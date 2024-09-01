@@ -11,7 +11,6 @@ public class SendChatMessageRequest {
     @Size(min = 1, max = 1000)
     private String chatMessage;
 
-    @NotBlank
     private Long chatRoomId;
 
 }
