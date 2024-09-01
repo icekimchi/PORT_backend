@@ -8,7 +8,7 @@ public class WebClientConfig {
 
     @Bean
     public WebClient webClient(WebClient.Builder webClientBuilder) {
-        String llmServerUrl = "https://prime-sloth-properly.ngrok-free.app";
+        String llmServerUrl = "https://many-together-baboon.ngrok-free.app";
         return webClientBuilder.baseUrl(llmServerUrl).build();
     }
 }
